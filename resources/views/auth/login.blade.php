@@ -57,7 +57,6 @@
                                                         <span class="checkbox-text">Keep me logged in</span>
                                                     </label>
                                                 </div>
-                                                <a href="{{ route('forget_password') }}">forget password?</a>
                                             </div>
                                             <div class="admin__button-group button-group d-flex pt-1 justify-content-md-start justify-content-center">
                                                 <button class="btn btn-primary btn-default w-100 btn-squared text-capitalize lh-normal px-50 signIn-createBtn ">
