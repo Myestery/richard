@@ -7,6 +7,10 @@
         </li>
         <li class="{{ Request::is('/blogs/create') ? 'active' : '' }}"><a href="/blogs/create">Create Post</a>
         </li>
+        @if(auth()->user()->is_admin)
+        <li class="{{ Request::is('/blogs/reports') ? 'active' : '' }}"><a href="/blogs/reports">View Reports</a>
+        </li>
+        @endif
         {{-- logout --}}
         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="">
             <li>

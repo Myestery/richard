@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\LGA;
 use App\Models\Blog;
+use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -108,4 +109,11 @@ class DashboardController extends Controller {
         $blog->delete();
         return redirect()->route('home')->with('success','Blog deleted successfully');
    }
+
+   public function reports(){
+    $title = "View Reports";
+    $description = "Some description for the page";
+    $reports = Report::with('blog')->get();
+    return view('pages.create-blog',compact('title','description','reports'));
+}
 }

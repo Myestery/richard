@@ -19,6 +19,7 @@ use App\Http\Controllers\PaginationController;
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('home');
     Route::get('/blogs/create', [DashboardController::class, 'create'])->name('blog.create');
+    Route::get('/blogs/reports', [DashboardController::class, 'reports'])->name('blog.reports');
     Route::get('/blogs/{blog}', [DashboardController::class, 'show'])->name('blog.show');
     Route::post('/blogs/{blog}/comment', [DashboardController::class, 'addComment'])->name('blog.comment');
     Route::post('/blogs/create', [DashboardController::class, 'store'])->name('blog.store');

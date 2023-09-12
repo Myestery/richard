@@ -52,12 +52,14 @@
                     <div class="push-down push-down--style">
                         <div class="filtr-container">
                             @foreach ($blogs as $blog)
-                                <div class="filtr-item filtr-item--style" data-category="1" data-sort="Busy streets">
+                                <div class="filtr-item filtr-item--style"
+                                style="overflow-y:hidden" data-category="1" data-sort="Busy streets">
                                     <a href="{{ route('blog.show', $blog->id) }}">
-                                        <div class="card">
+                                        <div class="card" style="height:350px">
                                             <div class="gc ">
                                                 <div class="gc__img">
-                                                    <img src="{{ $blog->image }}" alt="img" class="w-100 radius-xl">
+                                                    <img src="{{ $blog->image }}"
+                                                    style="height:200px;object-fit:cover" alt="img" class="w-100 radius-xl">
                                                 </div>
                                                 <div class="card-body px-25 py-20">
                                                     <div class="gc__title">
