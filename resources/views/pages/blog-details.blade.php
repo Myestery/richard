@@ -80,9 +80,12 @@
 
                                 <div class="form-group mb-0">
                                     <button type="submit" class="btn btn-lg btn-primary btn-submit">Submit</button>
+
                                 </div>
                             </form>
                         </div>
+
+                        <a href="/blogs/{{ $blog->id}}/report" class="btn btn-lg btn-danger btn-submit">Report Post</a>
 
                         <div class="blog-details-content">
                             <h3 class="main-title mb-30">

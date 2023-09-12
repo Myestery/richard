@@ -18,6 +18,7 @@ class ReportFactory extends Factory
     {
         return [
             'blog_id' => $this->faker->numberBetween(1,10),
+            'user_id' => $this->faker->numberBetween(1,10),
             'comment' => $this->faker->paragraph(),
             'media_url' => $this->faker->imageUrl()
         ];

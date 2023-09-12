@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->foreignId('blog_id');
+            $table->foreignId('user_id');
             $table->text('comment');
             $table->string('media_url');
             $table->timestamps();

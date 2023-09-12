@@ -8,34 +8,36 @@ use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class DashboardController extends Controller {
-    
+class DashboardController extends Controller
+{
+
     /**
      * Display dashbnoard demo one of the resource.
      *
      * @return \Illuminate\View\View
      */
-    public function index(){
+    public function index()
+    {
         $title = "Dashboard Demo One";
         $description = "Some description for the page";
         $lgas = LGA::all();
 
         $lga = request()->query('lga');
-       switch ($lga) {
-        case 'all':
-            $blogs = Blog::all();
-            break;
-        case 'mine':
-            $blogs = Blog::where('lga_id',auth()->user()->lga_id)->get();
-            break;
-        case null:
-            $blogs = Blog::all();
-            break;
-        default:
-            $blogs = Blog::where('lga_id',$lga)->get();
-            break;
-       }
-        return view('pages.index',compact('title','description','blogs','lgas'));
+        switch ($lga) {
+            case 'all':
+                $blogs = Blog::all();
+                break;
+            case 'mine':
+                $blogs = Blog::where('lga_id', auth()->user()->lga_id)->get();
+                break;
+            case null:
+                $blogs = Blog::all();
+                break;
+            default:
+                $blogs = Blog::where('lga_id', $lga)->get();
+                break;
+        }
+        return view('pages.index', compact('title', 'description', 'blogs', 'lgas'));
     }
 
     /**
@@ -43,10 +45,11 @@ class DashboardController extends Controller {
      *
      * @return \Illuminate\View\View
      */
-    public function show(Blog $blog){
+    public function show(Blog $blog)
+    {
         $title = $blog->title;
         $description = $blog->description;
-        return view('pages.blog-details',compact('title','description','blog'));
+        return view('pages.blog-details', compact('title', 'description', 'blog'));
     }
 
     /**
@@ -54,7 +57,8 @@ class DashboardController extends Controller {
      *
      * @return \Illuminate\View\View
      */
-    public function addComment(Blog $blog){
+    public function addComment(Blog $blog)
+    {
         $request = request()->validate([
             'comment' => 'required'
         ]);
@@ -64,17 +68,19 @@ class DashboardController extends Controller {
             'user_id' => auth()->user()->id
         ]);
 
-        return redirect()->back()->with('success','Comment added successfully');
+        return redirect()->back()->with('success', 'Comment added successfully');
     }
 
-   public function create(){
+    public function create()
+    {
         $title = "Create Blog";
         $description = "Some description for the page";
         $lgas = LGA::all();
-        return view('pages.create-blog',compact('title','description','lgas'));
-   }
+        return view('pages.create-blog', compact('title', 'description', 'lgas'));
+    }
 
-   public function store(Request $request){
+    public function store(Request $request)
+    {
 
         $request->validate([
             'title' => 'required',
@@ -85,9 +91,9 @@ class DashboardController extends Controller {
         ]);
         // save image to local storage
         $image = $request->file('image');
-        $image_name = time().".".$image->getClientOriginalExtension();
-        $image->move(public_path('images'),$image_name);
-        $url = asset('images/'.$image_name);
+        $image_name = time() . "." . $image->getClientOriginalExtension();
+        $image->move(public_path('images'), $image_name);
+        $url = asset('images/' . $image_name);
         // create a comment
         $blog = Blog::create([
             'title' => $request['title'],
@@ -99,21 +105,66 @@ class DashboardController extends Controller {
             'status' => 'published'
         ]);
 
-        return redirect()->route('blog.show',$blog->id)->with('success','Blog created successfully');
-   }
+        return redirect()->route('blog.show', $blog->id)->with('success', 'Blog created successfully');
+    }
 
-   public function deleteBlog(Blog $blog){
+    public function deleteBlog(Blog $blog)
+    {
         if (auth()->user()->is_admin == false) {
             abort(403);
         }
         $blog->delete();
-        return redirect()->route('home')->with('success','Blog deleted successfully');
-   }
+        return redirect()->route('home')->with('success', 'Blog deleted successfully');
+    }
 
-   public function reports(){
-    $title = "View Reports";
-    $description = "Some description for the page";
-    $reports = Report::with('blog')->get();
-    return view('pages.create-blog',compact('title','description','reports'));
-}
+    public function reports()
+    {
+        $title = "View Reports";
+        $description = "Some description for the page";
+        $reports = Report::with('blog')->get();
+        return view('pages.reports', compact('title', 'description', 'reports'));
+    }
+
+    public function reportBlog(Blog $blog)
+    {
+        return view("pages.report-blog", [
+            'title' => "Report Blog",
+            'description' => "Some description for the page",
+            'blog' => $blog
+        ]);
+    }
+
+    public function storeReport(Blog $blog)
+    {
+        $request = request()->validate([
+            'report' => 'required',
+            'image' => 'required|image',
+        ]);
+
+        // upload screenshot
+        $image = $request->file('image');
+        $image_name = time() . "." . $image->getClientOriginalExtension();
+        $image->move(public_path('images'), $image_name);
+        $url = asset('images/' . $image_name);
+
+        // create a report
+        Report::create([
+            'comment' => $request['report'],
+            'media_url' => $url,
+            'blog_id' => $blog->id,
+            'user_id' => auth()->user()->id
+        ]);
+
+
+        return redirect()->back()->with('success', 'Report added successfully');
+    }
+
+    public function showReport(Report $report)
+    {
+        return view("pages.report-details", [
+            'title' => "Report Details",
+            'description' => "Some description for the page",
+            'report' => $report
+        ]);
+    }
 }
