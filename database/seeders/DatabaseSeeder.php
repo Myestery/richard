@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
          $this->call([
+             ReportSeeder::class,
             LGASeeder::class,
         ]);
         \App\Models\User::factory()->create([
@@ -119,5 +120,7 @@ class DatabaseSeeder extends Seeder
                     'blog_id' => $blog->id,
                 ]);
             }
+
+    
     }
 }

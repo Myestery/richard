@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('image');
+            $table->string('image')->default('https://cdn.punchng.com/wp-content/uploads/2023/08/26080745/kehinde-edun-150x198.jpg');
             $table->boolean('is_admin')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

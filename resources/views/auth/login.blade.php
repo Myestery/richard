@@ -20,13 +20,12 @@
                     <div class="col-xxl-3 col-xl-4 col-md-6 col-sm-8">
                         <div class="edit-profile">
                             <div class="edit-profile__logos">
-                                <img class="dark" src="{{ asset('assets/img/logo-dark.png') }}" alt="">
-                                <img class="light" src="{{ asset('assets/img/logo-white.png') }}" alt="">
+                         
                             </div>
                             <div class="card border-0">
                                 <div class="card-header">
                                     <div class="edit-profile__title">
-                                        <h6>Sign in HexaDash</h6>
+                                        <h6>Sign in to Continue</h6>
                                     </div>
                                 </div>
                                 <div class="card-body">
