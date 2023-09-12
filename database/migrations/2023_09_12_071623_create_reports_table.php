@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('blog_id');
-            $table->foreignId('user_id');
+            $table->foreignId('blog_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('comment');
             $table->string('media_url');
             $table->timestamps();

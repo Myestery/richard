@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-            <form method="POST" action="/blogs/{{$blog->id}}/report" class="row justify-content-center mt-25">
+            <form enctype="multipart/form-data" method="POST" action="/blogs/{{ $blog->id }}/report" class="row justify-content-center mt-25">
                 @csrf
                 <div class="col-sm-6">
                     <div class="job-apply-wrapper">
@@ -28,7 +28,7 @@
                             <h1>
                                 Submit your Ticket
                             </h1>
-                            <form>
+                            <form method="POST" action="/blogs/{{ $blog->id }}/report">
                                 <div class="form-group">
                                     <label>What did you find wrong about this post?</label>
                                     <textarea name="report" class="form-control" rows="3" placeholder="What can we help with?"></textarea>
@@ -36,26 +36,18 @@
 
                                 <div class="form-group">
                                     <label>Please upload a proof</label>
-                                    <div class="dm-tag-wrap">
-                                        <div class="dm-upload">
-                                            <div class="dm-upload__button">
-                                                <a href="javascript:void(0)"
-                                                    class="btn btn-lg btn-outline-lighten btn-upload"
-                                                    onclick="$('#upload-1').click()"> <img
-                                                        src="{{ asset('assets/img/svg/paperclip.svg') }}" alt="paperclip"
-                                                        class="svg"> Browse</a>
-                                                <input type="file" name="upload-1" class="upload-one" id="upload-1">
-                                            </div>
-                                            <div class="dm-upload__file">
-                                                <ul>
-
-                                                </ul>
+                                    <div class="">
+                                        <div class="">
+                                            <div class="">
+                                                <input required type="file" accept="image/*" name="file">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="button-group d-flex pt-15">
-                                    <button type="submit" class="btn btn-primary btn-default btn-squared ">Report Post</button>
+                                    <button type="submit" class="btn btn-primary btn-default btn-squared ">
+                                        Report Post
+                                    </button>
                                 </div>
                             </form>
                         </div>

@@ -134,21 +134,20 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function storeReport(Blog $blog)
+    public function storeReport(Request $request, Blog $blog)
     {
-        $request = request()->validate([
+         $request->validate([
             'report' => 'required',
-            'image' => 'required|image',
+            'file' => 'required|image',
         ]);
-
         // upload screenshot
-        $image = $request->file('image');
+        $image = $request->file('file');
         $image_name = time() . "." . $image->getClientOriginalExtension();
         $image->move(public_path('images'), $image_name);
         $url = asset('images/' . $image_name);
 
         // create a report
-        Report::create([
+        $r = Report::create([
             'comment' => $request['report'],
             'media_url' => $url,
             'blog_id' => $blog->id,
@@ -164,7 +163,14 @@ class DashboardController extends Controller
         return view("pages.report-details", [
             'title' => "Report Details",
             'description' => "Some description for the page",
-            'report' => $report
+            'report' => $report,
+            'blog' => $report->blog
         ]);
+    }
+
+    public function deleteReport(Report $report)
+    {
+        $report->delete();
+        return redirect()->route('home')->with('success', 'Report deleted successfully');
     }
 }

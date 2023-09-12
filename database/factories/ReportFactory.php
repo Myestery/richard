@@ -17,8 +17,8 @@ class ReportFactory extends Factory
     public function definition()
     {
         return [
-            'blog_id' => $this->faker->numberBetween(1,10),
-            'user_id' => $this->faker->numberBetween(1,10),
+            'blog_id' => $this->faker->numberBetween(1,5),
+            'user_id' => $this->faker->numberBetween(1,3),
             'comment' => $this->faker->paragraph(),
             'media_url' => $this->faker->imageUrl()
         ];

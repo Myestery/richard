@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         $this->call([
-             ReportSeeder::class,
+        $this->call([
+
             LGASeeder::class,
         ]);
         \App\Models\User::factory()->create([
@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@test.com',
             'is_admin' => true,
         ]);
-       
+
         \App\Models\User::factory(10)->create();
         $blogData = [
             [
@@ -114,13 +114,15 @@ class DatabaseSeeder extends Seeder
                 'title' => $blog['title'],
                 'description' => $blog['description'],
             ]);
-        }        
-         foreach (\App\Models\Blog::all() as $blog) {
-                \App\Models\Comment::factory(10)->create([
-                    'blog_id' => $blog->id,
-                ]);
-            }
+        }
+        foreach (\App\Models\Blog::all() as $blog) {
+            \App\Models\Comment::factory(10)->create([
+                'blog_id' => $blog->id,
+            ]);
+        }
 
-    
+        $this->call([
+            ReportSeeder::class,
+        ]);
     }
 }
